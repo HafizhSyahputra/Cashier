@@ -43,18 +43,24 @@ public class BarangService {
         }
     }
     private void writeFile(){
+        try {
+            barangServiceWriter = new FileWriter("barang.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         BufferedWriter bufferedWriter = new BufferedWriter(barangServiceWriter);
         for (int i = 0; i < barangList.size(); i++) {
             Barang barang = barangList.get(i);
             StringBuilder sb = new  StringBuilder();
-            sb.append(barang.getHargaBarang());
+            sb.append(barang.getKodeBarang());
             sb.append("|");
             sb.append(barang.getNamaBarang());
             sb.append("|");
             sb.append(barang.getHargaBarang());
             try {
-                bufferedWriter.write(sb.toString());
-                if (i < barangList.size() - 1){
+                bufferedWriter.write(sb.toString()
+                );
+                if (i < barangList.size()-1){
                     bufferedWriter.newLine();
                 }
             } catch (IOException e) {
@@ -66,10 +72,7 @@ public class BarangService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-
     private Barang parsingLineToBarang(String string) {
         StringTokenizer st = new StringTokenizer(string,"|");
         int id =0;
@@ -88,11 +91,22 @@ public class BarangService {
     }
     public List<Barang> getBarangList(){
         readFile();
-        return barangList;
+        return  barangList;
     }
 
-    public void addBarang(Barang barang){
+    public void addBarang (Barang barang){
         barangList.add(barang);
         writeFile();
     }
+
+    public List<Barang>
+    findByName(String name){
+        List<Barang>
+                resultList = barangList.stream()
+                .filter( barang -> barang.getNamaBarang().startsWith(name))
+                .toList();
+        return resultList;
+    }
+
+
 }
