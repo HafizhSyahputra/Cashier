@@ -1,9 +1,9 @@
 package com.smk.cashier.model;
 
-public class Stok extends Model{
+public class Stock extends Model{
     private int id;
     private String kodeBarang;
-    private int stokBarang;
+    private int stockBarang;
 
     public int getId() {
         return id;
@@ -21,17 +21,17 @@ public class Stok extends Model{
         this.kodeBarang = kodeBarang;
     }
 
-    public int getStokBarang() {
-        return stokBarang;
+    public int getStockBarang() {
+        return stockBarang;
     }
 
-    public void setStokBarang(int stokBarang) {
-        this.stokBarang = stokBarang;
+    public void setStockBarang(int stockBarang) {
+        this.stockBarang = stockBarang;
     }
 
     @Override
     public String toString() {
-        return "Stok{" +
+        return "Stock{" +
                 "id=" + id +
                 ", kodeBarang='" + kodeBarang + '\'' +
                 ", stokBarang=" + stokBarang +
