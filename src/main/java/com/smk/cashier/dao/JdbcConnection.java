@@ -15,7 +15,7 @@ public class JdbcConnection {
             String user = "cashier";
             String password = "c45h13r456";
             try {
-                Class.forName("org.postgresql.Driver");
+                    Class.forName("org.postgresql.Driver");
                 connection = Optional.ofNullable(DriverManager.getConnection(url, user, password));
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
