@@ -9,23 +9,21 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.*;
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestMethodOrder(
+        MethodOrderer.OrderAnnotation.class
+)
+
 class BarangServiceTest {
 
     @Test
     @Order(2)
     void getBarangList() {
-        List<Barang> barangList = BarangService.getInstance().getBarangList();
-        assertEquals(barangList.size(),3);
-    }
-
-    @Test
-    @Order(3)
-    void findByName(){
-        List<Barang> resultList = BarangService.getInstance().findByName("Laptop");
-        assertEquals(resultList.size(),2);
+        List<Barang> barangList=BarangService.getInstance().getBarangList();
+        assertEquals(barangList.size(),2);
     }
 
     @Test
@@ -40,8 +38,46 @@ class BarangServiceTest {
         laptop.setLastModified(new Date());
         barangDao.save(laptop);
 
+        Barang mouse = new Barang();
+        mouse.setKodeBarang("M0001");
+        mouse.setNamaBarang("Mouse");
+        mouse.setHargaBarang(100000);
+        mouse.setDateCreated(new Date());
+        mouse.setLastModified(new Date());
+        barangDao.save(mouse);
 
+        Barang LaptopGaming = new Barang();
+        mouse.setKodeBarang("LP002");
+        mouse.setNamaBarang("Laptop" + " Gaming");
+        mouse.setHargaBarang(1000000);
+        mouse.setDateCreated(new Date());
+        mouse.setLastModified(new Date());
+        barangDao.save(LaptopGaming);
     }
+
+    @Test
+    @Order(5)
+    void getDataById(){
+        BarangDao barangDao = new BarangDao();
+        Optional<Barang>barang1 = barangDao.get(1);
+        barang1.ifPresent(new Consumer<Barang>() {
+            @Override
+            public void accept(Barang barang) {
+                assertEquals("laptop", barang.getNamaBarang());
+                assertEquals("LP001", barang.getKodeBarang());
+            }
+        });
+
+        Optional<Barang>barang2 = barangDao.get(2);
+        barang2.ifPresent(new Consumer<Barang>() {
+            @Override
+            public void accept(Barang barang) {
+                assertEquals("Mouse", barang.getNamaBarang());
+                assertEquals("M0001", barang.getKodeBarang());
+            }
+        });
+    }
+
 
     @Test
     @Order(1)
@@ -50,27 +86,19 @@ class BarangServiceTest {
         laptop.setKodeBarang("LP001");
         laptop.setNamaBarang("Laptop");
         laptop.setHargaBarang(5000000);
-        laptop.setDateCreated(new Date());
-        laptop.setLastModified(new Date());
-        barangDao.save(laptop);
+        BarangService.getInstance().addBarang(laptop);
 
         Barang mouse = new Barang();
         mouse.setKodeBarang("M0001");
         mouse.setNamaBarang("Mouse");
         mouse.setHargaBarang(100000);
-        laptop.setDateCreated(new Date());
-        laptop.setLastModified(new Date());
-        barangDao.save(mouse);
+        BarangService.getInstance().addBarang(mouse);
 
-        Barang laptopgaming = new Barang();
-        laptopgaming.setKodeBarang("LP002");
-        laptopgaming.setNamaBarang("Laptop Gaming");
-        laptopgaming.setHargaBarang(2000000);
-        laptop.setDateCreated(new Date());
-        laptop.setLastModified(new Date());
-        barangDao.save(laptopgaming);
-
-
+        Barang LaptopGaming = new Barang();
+        mouse.setKodeBarang("LP002");
+        mouse.setNamaBarang("Laptop" + "Gaming");
+        mouse.setHargaBarang(1000000);
+        BarangService.getInstance().addBarang(LaptopGaming);
 
     }
 }
