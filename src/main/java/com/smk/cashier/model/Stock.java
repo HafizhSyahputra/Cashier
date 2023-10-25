@@ -34,11 +34,24 @@ public class Stock extends Model{
         return "Stock{" +
                 "id=" + id +
                 ", kodeBarang='" + kodeBarang + '\'' +
-                ", stokBarang=" + stokBarang +
+                ", stokBarang=" + stockBarang +
                 ", dateCreated=" + dateCreated +
                 ", lastModified=" + lastModified +
                 ", createdBy='" + createdBy + '\'' +
                 ", updatedBy='" + updatedBy + '\'' +
                 '}';
+    }
+
+    public void setStockId(String number) {
+    }
+
+    public void setNamaBarang(String laptop) {
+    }
+
+    public void setJumlahStok(int i) {
+    }
+
+    public int getJumlahStock() {
+        return 0;
     }
 }

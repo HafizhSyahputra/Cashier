@@ -78,6 +78,35 @@ class BarangServiceTest {
         });
     }
 
+    @Test
+    @Order(6)
+    void updateBarangbyKodeBarang(){
+        BarangDao barangDao = new BarangDao();
+        Barang laptop = new Barang();
+        laptop.setKodeBarang("LP001");
+        laptop.setNamaBarang("Laptop Updated");
+        laptop.setHargaBarang(6000000);
+        barangDao.update(laptop);
+
+        Optional<Barang>barang1 = barangDao.get(1);
+        barang1.ifPresent(new Consumer<Barang>() {
+            @Override
+            public void accept(Barang barang) {
+                assertEquals("laptop Updated", barang.getNamaBarang());
+                assertEquals("LP001", barang.getKodeBarang());
+                assertEquals(6000000, barang.getHargaBarang());
+            }
+        });
+
+        Optional<Barang>barang2 = barangDao.get(2);
+        barang2.ifPresent(new Consumer<Barang>() {
+            @Override
+            public void accept(Barang barang) {
+                assertEquals("Mouse", barang.getNamaBarang());
+                assertEquals("M0001", barang.getKodeBarang());
+            }
+        });
+    }
 
     @Test
     @Order(1)
