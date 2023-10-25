@@ -39,4 +39,11 @@ public abstract  class Model {
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
     }
+
+    public String getNamaBarang() {
+    }
+
+    public int getStockId() {
+        return Integer.parseInt(null);
+    }
 }

@@ -1,6 +1,7 @@
 package com.smk.cashier.service;
 
 import com.smk.cashier.model.Barang;
+import com.smk.cashier.model.Stock;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -96,7 +97,7 @@ public class StockService {
         return  stockList;
     }
 
-    public void addStock(Barang barang){
+    public void addStock(Stock barang){
         stockList.add(barang);
         writeFile();
     }
