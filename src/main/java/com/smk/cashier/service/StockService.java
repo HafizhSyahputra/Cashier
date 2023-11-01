@@ -12,7 +12,7 @@ public class StockService {
     FileReader stockServiceReader;
     FileWriter stockServiceWriter;
 
-    List<Barang> stockList =
+    List<Stock> stockList =
             new LinkedList<>();
     private static StockService
             stockService = null;
@@ -35,7 +35,7 @@ public class StockService {
         return stockService;
     }
 
-    private void readFile(){
+    /*private void readFile(){
         BufferedReader bufferedReader = new BufferedReader(stockServiceReader);
         List<String> stringList = bufferedReader.lines().toList();
         stockList = new LinkedList<>();
@@ -75,21 +75,19 @@ public class StockService {
         }
     }
 
-    private Barang parsingLineToBarang(String string) {
+    private Stock parsingLineToBarang(String string) {
         StringTokenizer st = new StringTokenizer(string, "|");
         int id = 0;
-        Barang barang = new Barang();
+        Stock stock = new Stock();
         while (st.hasMoreElements()) {
             if (id == 0) {
-                barang.setKodeBarang(st.nextToken());
+                stock.setStockId(st.nextToken());
             } else if (id == 1) {
-                barang.setNamaBarang(st.nextToken());
-            } else if (id == 2) {
-                barang.setHargaBarang(Integer.parseInt(st.nextToken()));
+                stock.setStockBarang(Integer.parseInt(st.nextToken()));
             }
             id++;
         }
-        return barang;
+        return stock;
     }
 
     public List<Barang> getStockList(){
@@ -107,5 +105,5 @@ public class StockService {
                 .filter(barang -> barang.getKodeBarang().equalsIgnoreCase(kodeBarang))
                 .toList();
         return resultList;
-    }
+    }*/
 }

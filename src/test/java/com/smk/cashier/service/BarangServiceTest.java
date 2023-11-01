@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(
         MethodOrderer.OrderAnnotation.class
@@ -109,6 +110,52 @@ class BarangServiceTest {
     }
 
     @Test
+    @Order(7)
+    void deleteBarang(){
+        BarangDao barangDao = new BarangDao();
+        Barang laptop = new Barang();
+        laptop.setKodeBarang("LP001");
+        barangDao.delete(laptop);
+        Optional<Barang>barang1 = barangDao.get(1);
+        assertEquals(barang1.isPresent(),false);
+    }
+
+    @Test
+    @Order(8)
+    void searchBarang(){
+        BarangDao barangDao = new BarangDao();
+        Barang bluetoothKeyboard = new Barang();
+        bluetoothKeyboard.setKodeBarang("BL001");
+        bluetoothKeyboard.setNamaBarang("Bluetooth Keyboard");
+        bluetoothKeyboard.setHargaBarang(500000);
+        bluetoothKeyboard.setDateCreated(new Date());
+        bluetoothKeyboard.setLastModified(new Date());
+        barangDao.save(bluetoothKeyboard);
+
+        Barang bluetoothmouse = new Barang();
+        bluetoothmouse.setKodeBarang("BL002");
+        bluetoothmouse.setNamaBarang("Bluetooth Mouse");
+        bluetoothmouse.setHargaBarang(300000);
+        bluetoothmouse.setDateCreated(new Date());
+        bluetoothmouse.setLastModified(new Date());
+        barangDao.save(bluetoothmouse);
+
+        Barang mechanicalkeyboard = new Barang();
+        mechanicalkeyboard.setKodeBarang("KB001");
+        mechanicalkeyboard.setNamaBarang("Mechanical Keyboard");
+        mechanicalkeyboard.setHargaBarang(2000000);
+        mechanicalkeyboard.setDateCreated(new Date());
+        mechanicalkeyboard.setLastModified(new Date());
+        barangDao.save(mechanicalkeyboard);
+
+             assertEquals(barangDao.search("Mecha").size(),1);
+        assertEquals(barangDao.search("Key").size(),2);
+        assertEquals(barangDao.search("BL").size(),2);
+
+
+    }
+
+    @Test
     @Order(1)
     void addBarang() {
         Barang laptop = new Barang();
@@ -128,6 +175,8 @@ class BarangServiceTest {
         mouse.setNamaBarang("Laptop" + "Gaming");
         mouse.setHargaBarang(1000000);
         BarangService.getInstance().addBarang(LaptopGaming);
+
+
 
     }
 }

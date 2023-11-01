@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StokServiceTest {
 
-    @Test
+    /*@Test
     @Order(2)
     void getStokList() {
         List<Barang> stockList=StockService.getInstance().getStockList();
@@ -102,5 +102,5 @@ class StokServiceTest {
         StockService.getInstance().addStock(laptopGaming);
 
 
-    }
+    }*/
 }

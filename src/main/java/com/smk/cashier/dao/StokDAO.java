@@ -45,19 +45,18 @@ public class StokDAO implements Dao<Stock, Integer> {
     @Override
     public Optional<Integer> save(Stock stok) {
         Stock nonNullStok = Objects.requireNonNull(stok);
-        String sql = "INSERT INTO Stok"+"(stok_id, nama_barang, jumlah_stok, created_by, updated_by, date_created, last_modified)"+
+        String sql = "INSERT INTO Stok"+"(stok_id, jumlah_stok, created_by, updated_by, date_created, last_modified)"+
                 "VALUES(?,?,?,?,?,?,?)";
         return connection.flatMap(conn ->{
             Optional<Integer> generatedId = Optional.empty();
             try {
                 PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                ps.setInt(1,stok.getStockId());
-                ps.setString(2,stok.getNamaBarang());
-                ps.setInt(3,stok.getJumlahStock());
-                ps.setString(4,stok.getCreatedBy());
-                ps.setString(5,stok.getUpdatedBy());
-                ps.setDate(6,new Date(stok.getDateCreated().getTime()));
-                ps.setDate(7,new Date(stok.getLastModified().getTime()));
+                ps.setInt(1,stok.getId());
+                ps.setInt(2,stok.getJumlahStock());
+                ps.setString(3,stok.getCreatedBy());
+                ps.setString(4,stok.getUpdatedBy());
+                ps.setDate(5,new Date(stok.getDateCreated().getTime()));
+                ps.setDate(6,new Date(stok.getLastModified().getTime()));
 
                 int numberOfInsertedRows = ps.executeUpdate();
                 if (numberOfInsertedRows > 0){
@@ -81,5 +80,10 @@ public class StokDAO implements Dao<Stock, Integer> {
     @Override
     public void delete(Stock stok) {
 
+    }
+
+    @Override
+    public Collection<Stock> search(String keyword) {
+        return null;
     }
 }
